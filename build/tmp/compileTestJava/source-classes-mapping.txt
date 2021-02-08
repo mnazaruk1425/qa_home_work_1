@@ -1,0 +1,2 @@
+tests/NewRegistrationForm.java
+ tests.NewRegistrationForm
