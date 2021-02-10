@@ -1,5 +1,6 @@
-package tests;
+package tests.demoqa;
 
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -7,32 +8,38 @@ import java.io.File;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$x;
+import static utils.RandomUtils.*;
 
 
-public class NewRegistrationForm {
+public class NewRegistrationFormWithFakerTests {
 
     @Test
     void dataAppearsInOutRegForm(){
-        String firstName = "Oleg",
-               lastName = "Ivanov",
-               email = "oliva@ru.com",
-               gender = "Other",
-               mobile = "2254963154",
-               dayOfBirth = "10",
-               monthOfBirth = "April",
-               yearOfBirth = "1974",
-               subject1 = "Economics",
-               subject2 = "English",
-               hobby1 = "Sports",
-               hobby2 = "Reading",
-               hobby3 = "Music",
-               picture = "1.png",
-               currentAddres ="Montgomery 215",
-               state ="NCR",
-               city = "Delhi";
+        Faker faker = new Faker();
+
+        String firstName = faker.name().firstName(),
+                lastName =  faker.name().lastName(),
+                email = faker.internet().emailAddress(),
+                gender = "Other",
+                mobile = faker.phoneNumber().subscriberNumber(10),
+                dayOfBirth = "14",
+                monthOfBirth = "February",
+                yearOfBirth = "2021",
+                subject1 = "Economics",
+                subject2 = "English",
+                hobby1 = "Sports",
+                hobby2 = "Reading",
+                hobby3 = "Music",
+                picture = "1.png",
+                currentAddress=faker.address().fullAddress(),
+                state ="NCR",
+                city = "Delhi";
+
 
         open("https://demoqa.com/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration form"));
+
         $("#firstName").val(firstName);
         $("#lastName").val(lastName);
         $("#userEmail").val(email);
@@ -57,7 +64,7 @@ public class NewRegistrationForm {
         $("#uploadPicture").uploadFile(new File("src/test/resources/img/" + picture));
         $("#uploadPicture").uploadFromClasspath("img/" + picture);
          //set current address
-        $("#currentAddress").val(currentAddres);
+        $("#currentAddress").val(currentAddress);
         //set state and city
         $("#state").click();
         $("#stateCity-wrapper").$(byText(state)).click();
@@ -67,9 +74,20 @@ public class NewRegistrationForm {
         $("#submit").click();
        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
 
-
-
-
-
+        $x("//td[text()='Student Name']").parent().shouldHave(text(firstName + " " + lastName));
+        $x("//td[text()='Student Email']").parent().shouldHave(text(email));
+        $x("//td[text()='Gender']").parent().shouldHave(text(gender));
+        $x("//td[text()='Mobile']").parent().shouldHave(text(mobile));
+      //  $x("//td[text()='Date of Birth']").parent().shouldHave(text(dayOfBirth + " " + monthOfBirth + "," + yearOfBirth));
+        $x("//td[text()='Subjects']").parent().shouldHave(text(subject1 + ", " + subject2));
+        $x("//td[text()='Hobbies']").parent().shouldHave(text(hobby1 + ", " + hobby2 + ", " + hobby3));
+        $x("//td[text()='Picture']").parent().shouldHave(text(picture));
+        $x("//td[text()='Address']").parent().shouldHave(text(currentAddress));
+        $x("//td[text()='State and City']").parent().shouldHave(text(state + " " + city));
     }
+
+
+
+
 }
+
