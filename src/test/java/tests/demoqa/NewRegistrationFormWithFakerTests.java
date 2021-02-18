@@ -23,7 +23,7 @@ public class NewRegistrationFormWithFakerTests {
                 email = faker.internet().emailAddress(),
                 gender = "Other",
                 mobile = faker.phoneNumber().subscriberNumber(10),
-                dayOfBirth = "14",
+                dayOfBirth = "15",
                 monthOfBirth = "February",
                 yearOfBirth = "2021",
                 subject1 = "Economics",

@@ -20,7 +20,7 @@ public class NewRegistrationForm {
                mobile = "2254963154",
                dayOfBirth = "14",
                monthOfBirth = "February",
-               yearOfBirth = "2021",
+               yearOfBirth = "1984",
                subject1 = "Economics",
                subject2 = "English",
                hobby1 = "Sports",
@@ -68,16 +68,7 @@ public class NewRegistrationForm {
         $("#submit").click();
        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
 
-        $x("//td[text()='Student Name']").parent().shouldHave(text(firstName + " " + lastName));
-        $x("//td[text()='Student Email']").parent().shouldHave(text(email));
-        $x("//td[text()='Gender']").parent().shouldHave(text(gender));
-        $x("//td[text()='Mobile']").parent().shouldHave(text(mobile));
-        $x("//td[text()='Date of Birth']").parent().shouldHave(text(dayOfBirth + " " + monthOfBirth + "," + yearOfBirth));
-        $x("//td[text()='Subjects']").parent().shouldHave(text(subject1 + ", " + subject2));
-        $x("//td[text()='Hobbies']").parent().shouldHave(text(hobby1 + ", " + hobby2 + ", " + hobby3));
-        $x("//td[text()='Picture']").parent().shouldHave(text(picture));
-        $x("//td[text()='Address']").parent().shouldHave(text(currentAddress));
-        $x("//td[text()='State and City']").parent().shouldHave(text(state + " " + city));
+
     }
 
 
